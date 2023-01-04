@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-import click
 import logging
-from pathlib import Path
-from dotenv import find_dotenv, load_dotenv
-import numpy as np
 from os import listdir
+from pathlib import Path
+
+import click
+import numpy as np
+import torch
+from dotenv import find_dotenv, load_dotenv
 
 
 @click.command()
@@ -16,21 +18,14 @@ def main(input_filepath, output_filepath):
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
-
     files = listdir("cookiecuttertest/data/raw")
     train_in = np.empty(shape=(0, 28, 28))
     train_out = np.empty(shape=(0))
-
-    test_in = np.empty(shape=(0, 28, 28))
-    test_out = np.empty(shape=(0))
     for f in files:
-        if f[0:5] == "train":
-            train_in = np.concatenate((train_in, np.load("data/corruptmnist/" + f)['images']), axis=0)
-            train_out = np.concatenate((train_out, np.load("data/corruptmnist/" + f)['labels']), axis=0)
-        else:
-            test_in = np.concatenate((test_in, np.load("data/corruptmnist/" + f)['images']), axis=0)
-            test_out = np.concatenate((test_out, np.load("data/corruptmnist/" + f)['labels']), axis=0)
-    return (train_in, train_out), (test_in, test_out)
+        inputs = np.concatenate((train_in, np.load("data/raw/" + f)['images']), axis=0)
+        labels = np.concatenate((train_out, np.load("data/raw/" + f)['labels']), axis=0)
+    torch.save(inputs, "data/processed/inputs")
+    torch.save(labels, "data/processed/labels")
 
 
 if __name__ == '__main__':

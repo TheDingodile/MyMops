@@ -1,9 +1,10 @@
-import torch
 import matplotlib.pyplot as plt
+import torch
 from predict_model import MyAwesomeModel
 
 model = MyAwesomeModel()
-train_set, _ = mnist()
+train_set = torch.load("data/processed/inputs")
+labels = torch.load("data/processed/labels")
 input, labels = torch.tensor(train_set[0]), torch.tensor(train_set[1])
 all_loss = []
 for epoch in range(100):
@@ -26,4 +27,4 @@ for epoch in range(100):
         all_loss.append(running_loss)
 plt.plot(all_loss)
 plt.show()
-torch.save(model, "trained_model.pt")
+torch.save(model, "models/trained_model.pt")

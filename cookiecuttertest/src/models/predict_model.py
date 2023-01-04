@@ -1,6 +1,6 @@
-from torch import nn
-from torch import optim
 import torch
+from torch import nn, optim
+
 
 class MyAwesomeModel(nn.Module):
     def __init__(self):
