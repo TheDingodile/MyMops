@@ -1,0 +1,42 @@
+{
+    "os": "Windows-10-10.0.19044-SP0",
+    "python": "3.10.8",
+    "heartbeatAt": "2023-01-05T12:03:54.616473",
+    "startedAt": "2023-01-05T12:03:47.802432",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "c:\\Users\\jakob\\OneDrive\\Skrivebord\\MyMops\\s4_debugging_and_logging\\exercise_files\\vae_mnist_working.py",
+    "codePath": "s4_debugging_and_logging\\exercise_files\\vae_mnist_working.py",
+    "git": {
+        "remote": "https://github.com/TheDingodile/MyMops.git",
+        "commit": "7555d052ee2849a16bf8094a6a011b5e5e86c5ef"
+    },
+    "email": "jakob@3esser.dk",
+    "root": "C:/Users/jakob/OneDrive/Skrivebord/MyMops",
+    "host": "DESKTOP-S43403G",
+    "username": "jakob",
+    "executable": "C:\\Users\\jakob\\anaconda3\\envs\\my_environment\\python.exe",
+    "cpu_count": 2,
+    "cpu_count_logical": 4,
+    "cpu_freq": {
+        "current": 2401.0,
+        "min": 0.0,
+        "max": 2401.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2401.0,
+            "min": 0.0,
+            "max": 2401.0
+        }
+    ],
+    "disk": {
+        "total": 237.22753524780273,
+        "used": 130.75530624389648
+    },
+    "memory": {
+        "total": 7.885898590087891
+    }
+}

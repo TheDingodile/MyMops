@@ -10,6 +10,15 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import MNIST
 from torchvision.utils import save_image
+import wandb
+
+wandb.init(project="test-project", entity="noobs123")
+wandb.config = {
+  "learning_rate": 0.001,
+  "epochs": 100,
+  "batch_size": 128
+}
+
 
 # Model Hyperparameters
 dataset_path = 'datasets'
@@ -100,6 +109,8 @@ def loss_function(x, x_hat, mean, log_var):
 optimizer = Adam(model.parameters(), lr=lr)
 
 
+# Optional
+wandb.watch(model)
 print("Start training VAE...")
 model.train()
 for epoch in range(epochs):
@@ -112,7 +123,7 @@ for epoch in range(epochs):
 
         x_hat, mean, log_var = model(x)
         loss = loss_function(x, x_hat, mean, log_var)
-        
+        wandb.log({"loss": loss})
         overall_loss += loss.item()
         
         loss.backward()
