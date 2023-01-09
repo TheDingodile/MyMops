@@ -6,7 +6,7 @@ from src.data.mnist import load
 model = MyAwesomeModel()
 input_train, labels_train, _, _ = load("data/processed")
 all_loss = []
-for epoch in range(100):
+for epoch in range(5):
     running_loss = 0
     for i in range(len(input_train)//50):
         images = input_train[50 * i: 50 * (i + 1)]
@@ -26,4 +26,4 @@ for epoch in range(100):
         all_loss.append(running_loss)
 plt.plot(all_loss)
 plt.show()
-torch.save(model, "models/trained_model.pt")
+torch.save(model.state_dict(), "models/trained_model.pt")
