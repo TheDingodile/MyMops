@@ -2,6 +2,7 @@
 import logging
 from os import listdir
 from pathlib import Path
+from mnist import mnist
 
 import click
 import numpy as np
@@ -13,20 +14,16 @@ from dotenv import find_dotenv, load_dotenv
 @click.argument('input_filepath', type=click.Path(exists=True))
 @click.argument('output_filepath', type=click.Path())
 def main(input_filepath, output_filepath):
-    torch.load(listdir(input_filepath)[0])
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
-    files = listdir("cookiecuttertest/data/raw")
-    train_in = np.empty(shape=(0, 28, 28))
-    train_out = np.empty(shape=(0))
-    for f in files:
-        inputs = np.concatenate((train_in, np.load("data/raw/" + f)['images']), axis=0)
-        labels = np.concatenate((train_out, np.load("data/raw/" + f)['labels']), axis=0)
-    torch.save(inputs, output_filepath + "/inputs")
-    torch.save(labels, output_filepath + "/labels")
+    (inputs, labels), (test_in, test_out) = mnist(input_filepath)
+    torch.save(inputs, output_filepath + "/train" + "/inputs")
+    torch.save(labels, output_filepath + "/train" +"/labels")
+    torch.save(test_in, output_filepath + "/test" +"/inputs")
+    torch.save(test_out, output_filepath + "/test" +"/labels")
 
 
 if __name__ == '__main__':

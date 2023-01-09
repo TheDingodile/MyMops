@@ -1,19 +1,18 @@
 import matplotlib.pyplot as plt
 import torch
 from predict_model import MyAwesomeModel
+from src.data.mnist import load
 
 model = MyAwesomeModel()
-train_set = torch.load("data/processed/inputs")
-labels = torch.load("data/processed/labels")
-input, labels = torch.tensor(train_set[0]), torch.tensor(train_set[1])
+input_train, labels_train, _, _ = load("data/processed")
 all_loss = []
 for epoch in range(100):
     running_loss = 0
-    for i in range(len(input)//50):
-        images = input[50 * i: 50 * (i + 1)]
-        labs = labels[50 * i: 50 * (i + 1)]
+    for i in range(len(input_train)//50):
+        images = input_train[50 * i: 50 * (i + 1)]
+        labs = labels_train[50 * i: 50 * (i + 1)]
         # Flatten MNIST images into a 784 long vector
-        images = images.view(images.shape[0], -1)
+        images = images.reshape(images.shape[0], -1)
         # TODO: Training pass
         output = model.forward(images)
         loss = model.criterion(output, labs.to(torch.long))
